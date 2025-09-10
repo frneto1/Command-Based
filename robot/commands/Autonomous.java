@@ -20,6 +20,7 @@ public class Autonomous extends Command {
         this.driveSubsystem = driveSubsystem;
         this.calcs = calcs;
         this.timer = new Timer();
+     addRequirements(driveSubsystem);
     }
 
     @Override
