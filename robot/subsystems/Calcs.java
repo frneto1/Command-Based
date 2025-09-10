@@ -70,11 +70,11 @@ public class Calcs {
         Locomocao.velocidadeE = Locomocao.m_speed * magnitude;
         Locomocao.velocidadeD = (Locomocao.m_speed * (2 * sen + 1)) * magnitude * -1;
       } 
-      else if (ye < Constants.deadZone && xe < -Constants.deadZone){
+      else if (ye < Constants.deadZone && xe < Constants.deadZone){
         Locomocao.velocidadeE = (Locomocao.m_speed * (2 * sen + 1)) * magnitude * -1;
         Locomocao.velocidadeD = Locomocao.m_speed * magnitude;
       }
-      else if (ye > Constants.deadZone && xe < -Constants.deadZone){
+      else if (ye > Constants.deadZone && xe < Constants.deadZone){
         Locomocao.velocidadeE = -(Locomocao.m_speed * (2 * sen - 1)) * magnitude;
         Locomocao.velocidadeD = -Locomocao.m_speed * magnitude;
       }
