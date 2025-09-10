@@ -15,7 +15,7 @@ public class Autonomous extends Command {
     private final Timer timer;
     private double velocidadeE;
     private double velocidadeD;
-    private final double tempoLimite = 10.0; 
+    private final double tempoLimite = 15.0; 
 
     public Autonomous(DriveSubsystem driveSubsystem, Calcs calcs) {
         this.driveSubsystem = driveSubsystem;
@@ -33,9 +33,12 @@ public class Autonomous extends Command {
     @Override
     public void execute() {
         dash();
-        Control();
+    if (timer.get < 2.0) { //exemplo
         setSpeed(velocidadeE, velocidadeD);
-    }
+     } else {
+       stop();
+      }
+    }  
 
     @Override
     public void end(boolean interrupted) {
@@ -48,6 +51,8 @@ public class Autonomous extends Command {
     }
 
     public void setSpeed(double velocidadeE, double velocidadeD) {
+        velocidadeE = 0.25;
+        velocidadeD = 0.25;
         driveSubsystem.m_leftDrive.set(ControlMode.PercentOutput, velocidadeE);
         driveSubsystem.m_leftDrive2.set(ControlMode.PercentOutput, velocidadeE);
         driveSubsystem.m_rightDrive.set(ControlMode.PercentOutput, velocidadeD);
@@ -58,10 +63,6 @@ public class Autonomous extends Command {
         setSpeed(0, 0);
     }
 
-    public void Control() {
-        velocidadeE = 0.25;
-        velocidadeD = 0.25;
-    }
 
     public void dash() {
         SmartDashboard.putNumber("Velocidade direita", velocidadeD);
