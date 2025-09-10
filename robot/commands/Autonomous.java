@@ -5,22 +5,21 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Calcs;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class Autonomous extends Command {
 
     private final DriveSubsystem driveSubsystem;
-    private final Calcs calcs;
     private final Timer timer;
     private double velocidadeE;
     private double velocidadeD;
     private final double tempoLimite = 10.0; 
 
-    public Autonomous(DriveSubsystem driveSubsystem, Calcs calcs) {
+    public Autonomous(DriveSubsystem driveSubsystem) {
         this.driveSubsystem = driveSubsystem;
-        this.calcs = calcs;
         this.timer = new Timer();
+
+        addRequirements(driveSubsystem);
     }
 
     @Override
@@ -32,8 +31,8 @@ public class Autonomous extends Command {
 
     @Override
     public void execute() {
-        dash();
         Control();
+        dash();
         setSpeed(velocidadeE, velocidadeD);
     }
 
