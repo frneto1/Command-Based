@@ -1,7 +1,7 @@
 
+
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.sensors.PigeonIMU.GeneralStatus;
 
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Constants;
@@ -9,10 +9,21 @@ import frc.robot.commands.Locomocao;
 
 public class Calcs {
 
-    private Joystick bob;
+    private Joystick bob = new Joystick(0);
+    private Joystick roberto = new Joystick(1);
 
-    public Calcs(Joystick bob) {
+    public Calcs(Joystick bob, Joystick roberto) {
         this.bob = bob;
+        this.roberto = roberto;
+    }
+
+    public void upArm(){
+      double up = roberto.getRawAxis(2);
+      Locomocao.velocidadeA = 0.10 * up;
+    }
+    public void downArm(){
+      double down = roberto.getRawAxis(3);
+      Locomocao.velocidadeA = -0.10 * down;
     }
 
     public void LT() {
