@@ -6,25 +6,32 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.Calcs;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class Locomocao extends Command {
     public DriveSubsystem driveSubsystem;
+    public ArmSubsystem as;
     public Joystick bob;
     public Calcs calcs;
     private boolean a, b, x;
+    private Joystick roberto;
     public static double velocidadeE;
     public static double velocidadeD;
     public static double m_speed;
-
-
-    public Locomocao(DriveSubsystem driveSubsystem, Calcs calcs, Joystick bob){
-        this.driveSubsystem = driveSubsystem;
-        this.bob = bob;
+    public static double velocidadeA;
+    
+    
+    
+        public Locomocao(DriveSubsystem driveSubsystem, Calcs calcs, Joystick bob, ArmSubsystem as, Joystick roberto){
+            this.driveSubsystem = driveSubsystem;
+            this.bob = bob;
+            this.roberto = roberto;
         this.calcs = calcs;
+        this.as = as;
         
-        addRequirements(driveSubsystem);
+        addRequirements(driveSubsystem);    
     
     }
     @Override
@@ -36,6 +43,7 @@ public class Locomocao extends Command {
         button();
         setSpeed(velocidadeE, velocidadeD);
         control();
+        ControlArm();
         dash();
     }
     @Override
@@ -77,8 +85,6 @@ public class Locomocao extends Command {
 
         double xe = bob.getRawAxis(0);
         double ye = bob.getRawAxis(1);
-        double xd = bob.getRawAxis(4);
-        double yd = bob.getRawAxis(5);
 
         if (bob.getPOV() != -1) {
             calcs.pov();
@@ -94,6 +100,15 @@ public class Locomocao extends Command {
         }
     }
         }
+        public void ControlArm(){
+            if (roberto.getRawAxis(3) > Constants.deadZone){
+                calcs.downArm();
+            } else if (roberto.getRawAxis(2) > Constants.deadZone) {
+                calcs.upArm();
+            } else {
+                velocidadeA = 0;
+            }
+        }
         public void dash(){
             SmartDashboard.putBoolean("A", a);
             SmartDashboard.putBoolean("B", b);
@@ -101,5 +116,6 @@ public class Locomocao extends Command {
             SmartDashboard.putNumber("m_speed", m_speed);
             SmartDashboard.putNumber("Velocidade direita", velocidadeD);
             SmartDashboard.putNumber("Velocidade esquerda", velocidadeE);
+            SmartDashboard.putNumber("Velocidade do braço", velocidadeA);
         }
     }
