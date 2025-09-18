@@ -1,26 +1,27 @@
 
 
+
 package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.infravermelho;
+import frc.robot.subsystems.Infravermelho;
 
 public class Autonomous extends Command {
 
     private final DriveSubsystem driveSubsystem;
-    private final infravermelho ir;
+    private final Infravermelho ir;
+    
     private final Timer timer;
     private double velocidadeE;
     private double velocidadeD;
     private final double tempoLimite = 10.0; 
 
-    public Autonomous(DriveSubsystem driveSubsystem, infravermelho ir) {
+    public Autonomous(DriveSubsystem driveSubsystem, Infravermelho ir) {
         this.driveSubsystem = driveSubsystem;
         this.timer = new Timer();
         this.ir = ir;
@@ -40,7 +41,7 @@ public class Autonomous extends Command {
         if (ir.objDetectado()){
         stop();
         } else {
-        System.out.println("Valor IR" + ir.sensor.get());
+        System.out.println(ir.sensor.get());
         dash();
         setSpeed(velocidadeE, velocidadeD);
         Control();
