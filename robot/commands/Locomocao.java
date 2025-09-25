@@ -17,8 +17,8 @@ public class Locomocao extends Command {
     public Calcs calcs;
     private boolean a, b, x;
     private Joystick roberto;
-    public static double velocidadeE;
-    public static double velocidadeD;
+    public static double velocidadeE = 0;
+    public static double velocidadeD = 0;
     public static double m_speed;
     public static double velocidadeA;
     
@@ -28,8 +28,8 @@ public class Locomocao extends Command {
             this.driveSubsystem = driveSubsystem;
             this.bob = bob;
             this.roberto = roberto;
-        this.calcs = calcs;
-        this.as = as;
+            this.calcs = calcs;
+            this.as = as;
         
         addRequirements(driveSubsystem);    
     
@@ -86,9 +86,10 @@ public class Locomocao extends Command {
         double xe = bob.getRawAxis(0);
         double ye = bob.getRawAxis(1);
 
+
         if (bob.getPOV() != -1) {
             calcs.pov();
-        } else if (RT <= Constants.deadZone && LT >= Constants.deadZone) {
+        }else if (RT <= Constants.deadZone && LT >= Constants.deadZone) {
             calcs.LT();
         } else if (LT <= Constants.deadZone && RT >= Constants.deadZone) {
             calcs.RT();
