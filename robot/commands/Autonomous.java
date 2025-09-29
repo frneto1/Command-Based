@@ -32,19 +32,20 @@ public class Autonomous extends Command {
     @Override
     public void initialize() {
         driveSubsystem.reqDrive();
+        driveSubsystem.resetEncoder();
         timer.reset();
         timer.start();
     }
 
     @Override
     public void execute() {
-        if (ir.objDetectado()){
-        stop();
-        } else {
-        System.out.println(ir.sensor.get());
+        if (driveSubsystem.getEncoderDistance() >= 0){
+        System.out.println("Distância: " + driveSubsystem.getEncoderDistance());
         dash();
         setSpeed(velocidadeE, velocidadeD);
         Control();
+        } else {
+            stop();
         }
     }
 
