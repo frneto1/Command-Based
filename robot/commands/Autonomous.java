@@ -10,21 +10,24 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Infravermelho;
+import frc.robot.subsystems.Limelight;
 
 public class Autonomous extends Command {
 
     private final DriveSubsystem driveSubsystem;
     private final Infravermelho ir;
+    private final Limelight limelight;
     
     private final Timer timer;
     private double velocidadeE;
     private double velocidadeD;
     private final double tempoLimite = 10.0; 
 
-    public Autonomous(DriveSubsystem driveSubsystem, Infravermelho ir) {
+    public Autonomous(DriveSubsystem driveSubsystem, Infravermelho ir, Limelight limelight) {
         this.driveSubsystem = driveSubsystem;
         this.timer = new Timer();
         this.ir = ir;
+        this.limelight = limelight;
 
         addRequirements(driveSubsystem, ir);
     }
@@ -39,11 +42,9 @@ public class Autonomous extends Command {
 
     @Override
     public void execute() {
-        if (driveSubsystem.getEncoderDistance() >= 0){
-        System.out.println("Distância: " + driveSubsystem.getEncoderDistance());
+        if (limelight.detected()){
         dash();
-        setSpeed(velocidadeE, velocidadeD);
-        Control();
+        setSpeed(0.25, 0.25);
         } else {
             stop();
         }
@@ -68,11 +69,6 @@ public class Autonomous extends Command {
 
     public void stop() {
         setSpeed(0, 0);
-    }
-
-    public void Control() {
-        velocidadeE = 0.25;
-        velocidadeD = 0.25;
     }
 
     public void dash() {
