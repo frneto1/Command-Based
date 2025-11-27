@@ -10,6 +10,7 @@ java {
 
 def ROBOT_MAIN_CLASS = "frc.robot.Main"
 
+
 // Define my targets (RoboRIO) and artifacts (deployable files)
 // This is added by GradleRIO's backing project DeployUtils.
 deploy {
@@ -49,6 +50,13 @@ wpi.java.debugJni = false
 // Set this to true to enable desktop support.
 def includeDesktopSupport = true
 
+wpi.sim.envVar("HALSIMWS_HOST", "127.0.0.1")
+wpi.sim.addWebsocketsServer().defaultEnabled = true
+
+repositories{
+    mavenLocal();
+}
+
 // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
 // Also defines JUnit 5.
 dependencies {
@@ -72,6 +80,9 @@ dependencies {
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    implementation 'com.autodesk.synthesis:SyntheSimJava:1.0.0'
+
 }
 
 test {
