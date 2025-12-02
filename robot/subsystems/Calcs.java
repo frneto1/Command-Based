@@ -17,13 +17,13 @@ public class Calcs {
         this.roberto = roberto;
     }
 
-    public void upArm(){
-      double up = roberto.getRawAxis(2);
-      Locomocao.velocidadeA = 0.10 * up;
+    public void upPivot(){
+      double pivot = roberto.getRawAxis(2);
+      IntakeSubsystem.motorPivot.set(0.30 * pivot);
     }
-    public void downArm(){
-      double down = roberto.getRawAxis(3);
-      Locomocao.velocidadeA = -0.10 * down;
+    public void runIntake(){
+      double intake = roberto.getRawAxis(3);
+      IntakeSubsystem.motorIntake.set(0.30 * intake);
     }
 
     public void LT() {
@@ -109,19 +109,19 @@ public class Calcs {
       magnitude = Math.max(1, magnitude);
 
       
-      if (yd < 0.04 && xd > 0.04){
+      if (yd < Constants.deadZone && xd > Constants.deadZone){
         Locomocao.velocidadeE = -(Locomocao.m_speed * magnitude);
         Locomocao.velocidadeD = -(Locomocao.m_speed * (2 * sen + 1) * magnitude * -1);
       } 
-      else if (yd < -0.04 && xd < 0.04){
+      else if (yd < -Constants.deadZone && xd < Constants.deadZone){
         Locomocao.velocidadeE = -((Locomocao.m_speed * (2 * sen + 1)) * magnitude * -1);
         Locomocao.velocidadeD = -(Locomocao.m_speed * magnitude);
       }
-      else if (yd > 0.04 && xd < 0.04){
+      else if (yd > Constants.deadZone && xd < Constants.deadZone){
         Locomocao.velocidadeE = (Locomocao.m_speed * (2 * sen - 1)) * magnitude;
         Locomocao.velocidadeD = Locomocao.m_speed * magnitude;
       }
-      else if (yd > 0.04 & xd > 0.04){
+      else if (yd > Constants.deadZone & xd > Constants.deadZone){
         Locomocao.velocidadeE = Locomocao.m_speed * magnitude;
         Locomocao.velocidadeD = (Locomocao.m_speed * (2 * sen - 1)) * magnitude;
       }
