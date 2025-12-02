@@ -47,7 +47,7 @@ public class Autonomous extends Command {
             } else if (limelight.getTv() != 1){
                 setSpeed(0.25, -0.25);
                 }
-            else if (limelight.getTa() > 2 && limelight.getTv() != 0) {
+            else if (limelight.getTa() >=  1 && limelight.getTv() != 0) {
                 setSpeed(0, 0);
                 }
             }
@@ -62,10 +62,20 @@ public class Autonomous extends Command {
         }
 
     public void setSpeed(double velocidadeE, double velocidadeD) {
+        // ------- real -------
+
+
         driveSubsystem.m_leftDrive.set(ControlMode.PercentOutput, velocidadeE);
         driveSubsystem.m_leftDrive2.set(ControlMode.PercentOutput, velocidadeE);
         driveSubsystem.m_rightDrive.set(ControlMode.PercentOutput, velocidadeD);
         driveSubsystem.m_rightDrive2.set(ControlMode.PercentOutput, velocidadeD);
+
+         // ------- synthesis -------
+         //driveSubsystem.m_leftDrive.setPercentOutput(velocidadeE);
+        // driveSubsystem.m_leftDrive2.setPercentOutput(velocidadeE);
+     
+        // driveSubsystem.m_rightDrive.setPercentOutput(velocidadeD);
+        // driveSubsystem.m_rightDrive2.setPercentOutput(velocidadeD);
     }
 
     public void stop() {
@@ -78,3 +88,4 @@ public class Autonomous extends Command {
         SmartDashboard.putNumber("Tempo", timer.get());
     }
 }
+
