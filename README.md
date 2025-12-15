@@ -10,5 +10,6 @@ Inclui programação para:
 -> Alinhamento do robô com a apriltag (Com PID).  
 -> Robô de escalada (Com PID).  
 -> Trajectory Following.  
+-> Simulação de arena com o Autodesk Synthesis/Fission.
 
 Projetado e programado por estudantes do ensino médio, membros da equipe HYDRA FRC #9163.
